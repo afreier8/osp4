@@ -6,7 +6,8 @@
 #include <asm/uaccess.h>
 
 #define MAX_LEN 4096
-int read_info(char *page, char **start, off_t off, int count, int *eof, 
+
+int read_info(char *page, char **start, off_t off, int count, int *eof,
              void *data);
 ssize_t write_info(struct file *filp, const char __user *buff, unsigned 
              long len, void *data);
@@ -46,9 +47,11 @@ ssize_t write_info(struct file *filp, const char __user *buff,
     //copy the written data from user space and save it in info
    if (len > MAX_LEN)
 	len = MAX_LEN;
-   if (copy_from_user(info, buff, len))
+   
+    if (copy_from_user(info, buff, len))
 	return -EFAULT;
-   return len; 
+   
+    return len;
 }
 
 int read_info(char *buff, char **start, off_t offset, int count, 
